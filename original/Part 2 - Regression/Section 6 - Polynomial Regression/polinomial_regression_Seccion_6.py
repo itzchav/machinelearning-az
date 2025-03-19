@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Tue Mar  5 12:45:44 2019
+Created on Sun Mar 16 22:57:52 2025
 
-@author: juangabriel
+@author: karli
 """
 
 # Regresión polinómica
@@ -25,23 +24,20 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 """
 
-# Escalado de variables
-"""from sklearn.preprocessing import StandardScaler
-sc_X = StandardScaler()
-X_train = sc_X.fit_transform(X_train)
-X_test = sc_X.transform(X_test)"""
 
 # Ajustar la regresión lineal con el dataset
 from sklearn.linear_model import LinearRegression
 lin_reg = LinearRegression()
 lin_reg.fit(X, y)
 
+
 # Ajustar la regresión polinómica con el dataset
 from sklearn.preprocessing import PolynomialFeatures
-poly_reg = PolynomialFeatures(degree = 2)
+poly_reg = PolynomialFeatures(degree = 6)
 X_poly = poly_reg.fit_transform(X)
 lin_reg_2 = LinearRegression()
 lin_reg_2.fit(X_poly, y)
+
 
 # Visualización de los resultados del Modelo Lineal
 plt.scatter(X, y, color = "red")
@@ -52,22 +48,21 @@ plt.ylabel("Sueldo (en $)")
 plt.show()
 
 # Visualización de los resultados del Modelo Polinómico
-X_grid = np.arange(min(X), max(X), 0.1)
+X_grid = np.arange(min(X), max(X), 0.2)
 X_grid = X_grid.reshape(len(X_grid), 1)
 plt.scatter(X, y, color = "red")
 plt.plot(X_grid, lin_reg_2.predict(poly_reg.fit_transform(X_grid)), color = "blue")
 plt.title("Modelo de Regresión Polinómica")
 plt.xlabel("Posición del empleado")
 plt.ylabel("Sueldo (en $)")
+plt.grid(True)
 plt.show()
 
 # Predicción de nuestros modelos
 # Se ha añadido la sintaxis de doble corchete necesaria para hacer la predicción en las últimas versiones de Python (3.7+)
-lin_reg.predict([[6.5]])
-lin_reg_2.predict(poly_reg.fit_transform([[6.5]]))
+pred1=lin_reg.predict([[6]])
+pred2=lin_reg_2.predict(poly_reg.fit_transform([[6]]))
 
-
-
-
+print(pred1,pred2)
 
 
